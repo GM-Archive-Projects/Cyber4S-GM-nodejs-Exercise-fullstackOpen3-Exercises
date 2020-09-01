@@ -49,6 +49,7 @@ app.get("/", (req, res) => {
 app.get("/api/persons", (req, res) => {
 	res.json(persons);
 });
+
 //====GET Info Page====
 app.get("/info", (req, res) => {
 	res.send(
@@ -56,6 +57,23 @@ app.get("/info", (req, res) => {
 			persons.length
 		} people </h1><h2>Nice Date: ${getDate()}</h2> <h3> ${new Date()} </h3> </div>`
 	);
+});
+
+//====GET Specific Person====
+app.get("/api/persons/:id", (req, res) => {
+	const id = Number(req.params.id);
+	const person = persons.find((person) => person.id === id); //Find Gives a response with the specific Object
+
+	if (person) {
+		//If there is Existing Note with The Request Specified ID
+
+		console.log(`Person Has Been Found:`, person);
+		res.json(person);
+	} else {
+		//If There is not Note with this ID return Error Page not Found
+		console.log(`Person ID: ${req.params.id} Not Found`);
+		res.status(404).end();
+	}
 });
 
 const PORT = process.env.PORT || 3001;
