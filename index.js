@@ -76,6 +76,17 @@ app.get("/api/persons/:id", (req, res) => {
 	}
 });
 
+//===============Delete Requests Area===============
+//====Delete Specific Note===
+
+app.delete('/api/persons/:id', (req, res) => {        //Delete The Note with The ID from the Request
+    const id = Number(req.params.id)         //Request ID type is String ==> Neeeds to be converted to Number
+    persons = persons.filter(person => person.id !== id)            // Filter Created New Array withoud the Unwanted Objects (with the id from the req)
+    console.log(`Person Id : ${req.params.id} Has been Deleted`)
+    res.status(204).end()
+  })
+  
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
