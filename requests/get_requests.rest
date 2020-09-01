@@ -1,10 +1,7 @@
 //Get All Persons Check
 GET http://localhost:3001/api/persons HTTP/1.1
 
+//Get Info Check
 ###
-//Get Specific Persons Check
-GET http://localhost:3001/api/persons/1 HTTP/1.1
+GET http://localhost:3001/info HTTP/1.1
 
-###
-//Get Dammaged Request Check
-GET http://localhost:3001/api/dogs HTTP/1.1

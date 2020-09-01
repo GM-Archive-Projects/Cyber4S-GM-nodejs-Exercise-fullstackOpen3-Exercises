@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const morgan = require("morgan");
-const idGenerator = require('./utils/Generator');
-
+const idGenerator = require("./utils/Generator");
+const getDate = require("./utils/getCurrentDateTime");
 
 //Morgan Middleware Token To Log Request Body
 morgan.token("body", function (req, res) {
-    return JSON.stringify(req.body);
+	return JSON.stringify(req.body);
 });
 
 //Morgan Middleware Function To Log Request Details
@@ -48,6 +48,14 @@ app.get("/", (req, res) => {
 //====GET All Persons====//
 app.get("/api/persons", (req, res) => {
 	res.json(persons);
+});
+//====GET Info Page====
+app.get("/info", (req, res) => {
+	res.send(
+		`<div><h1> Phonebook has info for ${
+			persons.length
+		} people </h1><h2>Nice Date: ${getDate()}</h2> <h3> ${new Date()} </h3> </div>`
+	);
 });
 
 const PORT = process.env.PORT || 3001;
