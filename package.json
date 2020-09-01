@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "PhoneBook Backend App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrMoshkovitz/fullstackOpen3-Exercises.git"
+  },
+  "author": "Gal Moshkovitz",
+  "license": "ISC",
+  "dependencies": {
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/MrMoshkovitz/fullstackOpen3-Exercises/issues"
+  },
+  "homepage": "https://github.com/MrMoshkovitz/fullstackOpen3-Exercises#readme"
+}
