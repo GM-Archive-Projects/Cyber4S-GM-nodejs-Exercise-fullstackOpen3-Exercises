@@ -2,10 +2,15 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const morgan = require("morgan");
+const idGenerator = require('./utils/Generator');
+
+
+//Morgan Middleware Token To Log Request Body
 morgan.token("body", function (req, res) {
-	return JSON.stringify(req.body);
+    return JSON.stringify(req.body);
 });
 
+//Morgan Middleware Function To Log Request Details
 app.use(
 	morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
