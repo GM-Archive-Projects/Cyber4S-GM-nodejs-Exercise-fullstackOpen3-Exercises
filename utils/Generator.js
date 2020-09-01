@@ -1,19 +1,14 @@
 const generateId = (arr) => {
     console.log(`Generating ID --->`)
     const maxId = arr.length > 0 ? Math.max(...arr.map(n => n.id)) : 0          //Checkig The Length of the Array And Adding an Id higher than The Max ID
-    const newID = arr.find((obj) => obj.id === maxId + 1)
+    console.log(`ID Generated ${maxId + 1}`)
+    return maxId + 1
 
-    if(newID) {
-        generateId(arr)
-    } else {
-        console.log(`ID Generated ${maxId + 1}`)
-        return maxId + 1
-    }
 }
 
 
 const generateRandId = (arr) => {
-    console.log(`Generating Random ID --->`)
+    console.log(`Generating ID --->`)
     const id = Math.floor(Math.random() * 10000000)
     const idNew = arr.find((obj) => obj.id === id);           
 
@@ -28,7 +23,7 @@ const generateRandId = (arr) => {
 
 const generatePhoneNumber = (arr) => {
     console.log(`Generating Phone Number --->`)
-    const phoneNumber = `05${Math.floor(Math.random() * 10)}-${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000)}`
+    const phoneNumber = `0${Math.floor(Math.random() * 100)}-${Math.floor(Math.random() * 10000000)}`
     const phoneNumberNew = arr.find((obj) => obj.number === phoneNumber);           
 
     if (phoneNumberNew) {
