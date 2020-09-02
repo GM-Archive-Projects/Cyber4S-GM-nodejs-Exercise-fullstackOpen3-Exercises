@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "phonebookbackend",
   "version": "1.0.0",
   "description": "PhoneBook Backend App",
   "main": "index.js",
@@ -16,12 +16,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "morgan": "^1.10.0"
   },
-  "devDependencies": {},
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/MrMoshkovitz/fullstackOpen3-Exercises/issues"
-  },
-  "homepage": "https://github.com/MrMoshkovitz/fullstackOpen3-Exercises#readme"
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
