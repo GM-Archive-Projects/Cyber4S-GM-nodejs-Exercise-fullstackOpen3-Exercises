@@ -1,0 +1,54 @@
+//Post Person With Known ID  and Known Phone Number 
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Leran Lifshitz",
+    "id": 7,
+    "number": "055-777-7777"
+}
+
+### //Post Person With Unkown ID  and Unkown Phone Number 
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "No ID No Phone"
+}
+
+### //Post Person With Unkown ID  and Known Phone Number 
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "No ID Yes Phone",
+    "number": "050-000-0000"
+}
+
+### //Post Person With Known ID  and Unkown Phone Number 
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "No Phone Yes ID",
+    "id": 10
+}
+
+### //Post Person With Existing ID Number  and Unkown Phone Number 
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "No Phone Yes ID",
+    "id": 3
+}
+
+
+### //Existing Name Request
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Michael Moshkovitz"
+}
+
