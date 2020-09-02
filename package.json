@@ -15,6 +15,7 @@
   "author": "Gal Moshkovitz",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "morgan": "^1.10.0"
   },
   "devDependencies": {},

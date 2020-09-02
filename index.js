@@ -1,14 +1,17 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
+const cors = require("cors");
+// app.use(express.static("build"));
+
 const morgan = require("morgan");
+
 const {
 	generateId,
 	generateRandId,
 	generatePhoneNumber,
 } = require("./utils/Generator");
 const getDate = require("./utils/getCurrentDateTime");
-
 
 //Middleware Functions
 
@@ -17,6 +20,8 @@ morgan.token("body", function (req, res) {
 	return JSON.stringify(req.body);
 });
 
+app.use(cors());
+
 //Morgan Middleware Function To Log Request Details
 app.use(
 	morgan(
@@ -24,15 +29,6 @@ app.use(
 	)
 );
 
-//Middleware Function To Send Response if there is no API Route to This URL
-const unknownEndpoint = (req, res) => {
-	res.status(404).send({
-		error: `Unkown Endpoint URL: http://localhost:${PORT}${req.path}`,
-        
-    });
-};
-
-app.use(unknownEndpoint);
 
 // Persons JSON Content
 let persons = [
@@ -94,8 +90,7 @@ app.get("/api/persons/:id", (req, res) => {
 	const person = persons.find((person) => person.id === id); //Find Gives a response with the specific Object
 
 	if (person) {
-		//If there is Existing Note with The Request Specified ID
-
+		//If there is Existing Person with The Request Specified ID
 		console.log(`Person Has Been Found:`, person);
 		res.json(person);
 	} else {
@@ -111,7 +106,8 @@ app.get("/api/persons/:id", (req, res) => {
 app.post("/api/persons", (req, res) => {
 	//PostNew Note to Notes
 	const body = req.body;
-	let id = req.body.id;
+	// let id;
+	let id = body.id;
 
 	//If The Body Content Is Empty Retrurn Error Page
 	if (!body.name) {
@@ -119,15 +115,17 @@ app.post("/api/persons", (req, res) => {
 			error: "Name Must be Specified",
 		});
 	}
-	const personIndluded = persons.find(
-		(personIndluded) => personIndluded.name === body.name
+	const personIncluded = persons.find(
+		(personIncluded) => personIncluded.name === body.name
 	);
-	if (personIndluded) {
+
+	if (personIncluded) {
 		return res.status(404).json({
 			error: "name must be unique",
 		});
 	}
-	if (!id) {
+
+	if (!body.id) {
 		id = generateId(persons);
 	}
 
@@ -155,6 +153,16 @@ app.delete("/api/persons/:id", (req, res) => {
 	console.log(`Person Id : ${req.params.id} Has been Deleted`);
 	res.status(204).end();
 });
+
+
+//Middleware Function To Send Response if there is no API Route to This URL
+const unknownEndpoint = (req, res) => {
+	res.status(404).send({
+		error: `Unkown Endpoint URL: http://localhost:${PORT}${req.path}`,
+	});
+};
+
+app.use(unknownEndpoint);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
