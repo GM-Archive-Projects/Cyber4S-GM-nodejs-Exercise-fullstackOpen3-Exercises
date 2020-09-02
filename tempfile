@@ -1,0 +1,26 @@
+
+###
+//Get Dammaged Request Check
+GET http://localhost:3001/api/dogs HTTP/1.1
+
+
+
+### //Existing Name Dammaged Request
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Michael Moshkovitz"
+}
+
+### //Existing ID Dammaged Request
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "No Name",
+    "id": 5
+}
+
+
+body.number ? body.number : body.id ? body.id : 
