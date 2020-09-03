@@ -1,0 +1,17 @@
+//Post Person With Known ID  and Known Phone Number 
+PUT  http://localhost:3001/api/persons/5f512784fa18f5258068b878 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Avi Nimni",
+    "number": "055-777-7777"
+}
+
+### //Post Person With Unkown ID  and Unkown Phone Number 
+Put http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "No ID No Phone"
+}
+

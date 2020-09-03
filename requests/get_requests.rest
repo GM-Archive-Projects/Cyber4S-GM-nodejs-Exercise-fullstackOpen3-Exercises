@@ -4,6 +4,9 @@ GET http://localhost:3001/api/persons HTTP/1.1
 ### //Get All Persons Check
 GET http://localhost:3001/api/persons/4 HTTP/1.1
 
+### //Get All Persons Check
+GET http://localhost:3001/api/persons/someInvalidId HTTP/1.1
+
 ### //Get Info Check
 GET http://localhost:3001/info HTTP/1.1
 
