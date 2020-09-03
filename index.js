@@ -63,18 +63,11 @@ app.get("/api/persons/:id", (req, res, next) => {
 // //===============Post Requests Area===============
 // //====Post Specific Note====
 
-app.post("/api/persons", (req, res) => {
+app.post("/api/persons", (req, res, next) => {
 	//PostNew Note to Notes
 	const body = req.body;
 	// let id;
 	let id = body.id;
-
-	//If The Body Content Is Empty Retrurn Error Page
-	if (!body.name) {
-		return res.status(400).json({
-			error: "Name Must be Specified",
-		});
-	}
 	if (!body.number) {
 		console.log("Number Has been Generated");
 	}
@@ -82,11 +75,15 @@ app.post("/api/persons", (req, res) => {
 	// const idNew = persons.find((obj) => obj.id === id) ? persons.find((obj) => obj.id === id) :
 	const person = new Person({
 		name: body.name,
-		number: body.number ? body.number : generatePhoneNumber()
+		number: body.number ? body.number : generatePhoneNumber(),
 	});
-	person.save().then((savedPerson) => {
-		res.json(savedPerson);
-	});
+	person
+		.save()
+		.then(savedPerson => savedPerson.toJSON())
+		.then((savedAndFormattedPerson) => {
+			res.json(savedAndFormattedPerson);
+		})
+		.catch((error) => next(error));
 });
 
 //===============Delete Requests Area===============
@@ -100,26 +97,23 @@ app.delete("/api/persons/:id", (req, res, next) => {
 		.catch((error) => next(error));
 });
 
-
-
 //===============Put Requests Area===============
 //====Change Specific Person===
-app.put('/api/persons/:id', (req, res, next) => {
-	const body = req.body
-  
-	const person = {
-	  name: body.name,
-	  number: body.number ? body.number : generatePhoneNumber()
-	}
-  
-	Person.findByIdAndUpdate(req.params.id, person, { new: true })
-	  .then(updatedPerson => {
-		console.log("Updated")
-		res.json(updatedPerson)
-	  })
-	  .catch(err => next(err))
-  })
+app.put("/api/persons/:id", (req, res, next) => {
+	const body = req.body;
 
+	const person = {
+		name: body.name,
+		number: body.number ? body.number : generatePhoneNumber(),
+	};
+
+	Person.findByIdAndUpdate(req.params.id, person, { new: true })
+		.then((updatedPerson) => {
+			console.log("Updated");
+			res.json(updatedPerson);
+		})
+		.catch((err) => next(err));
+});
 
 const unknownEndpoint = (req, res) => {
 	res.status(404).send({
@@ -134,8 +128,9 @@ const errorHandler = (error, request, response, next) => {
 
 	if (error.name === "CastError") {
 		return response.status(400).send({ error: "malformatted id" });
+	} else if (error.name === "ValidationError") {
+		return response.status(400).json({ error: error.message });
 	}
-
 	next(error);
 };
 
